@@ -1,0 +1,179 @@
+  $(MESH_SDK)/examples/common/src/mesh_softdevice_init.c \
+  $(MESH_SDK)/examples/common/src/mesh_provisionee.c \
+  $(MESH_SDK)/examples/common/src/rtt_input.c \
+  $(MESH_SDK)/examples/common/src/simple_hal.c \
+  $(MESH_SDK)/examples/common/src/mesh_app_utils.c \
+  $(MESH_SDK)/examples/nrf_mesh_weak.c \
+  $(MESH_SDK)/examples/common/src/app_error_weak.c \
+  $(MESH_SDK)/examples/common/src/assertion_handler_weak.c \
+
+
+  $(MESH_SDK)/mesh/core/src/internal_event.c \
+  $(MESH_SDK)/mesh/core/src/nrf_mesh_configure.c \
+  $(MESH_SDK)/mesh/core/src/aes.c \
+  $(MESH_SDK)/mesh/core/src/msg_cache.c \
+  $(MESH_SDK)/mesh/core/src/transport.c \
+  $(MESH_SDK)/mesh/core/src/event.c \
+  $(MESH_SDK)/mesh/core/src/packet_buffer.c \
+  $(MESH_SDK)/mesh/core/src/flash_manager_defrag.c \
+  $(MESH_SDK)/mesh/core/src/fifo.c \
+  $(MESH_SDK)/mesh/core/src/nrf_flash.c \
+  $(MESH_SDK)/mesh/core/src/packet_mgr.c \
+  $(MESH_SDK)/mesh/core/src/net_state.c \
+  $(MESH_SDK)/mesh/core/src/mesh_flash.c \
+  $(MESH_SDK)/mesh/core/src/nrf_mesh_utils.c \
+  $(MESH_SDK)/mesh/core/src/nrf_mesh.c \
+  $(MESH_SDK)/mesh/core/src/queue.c \
+  $(MESH_SDK)/mesh/core/src/hal.c \
+  $(MESH_SDK)/mesh/core/src/aes_cmac.c \
+  $(MESH_SDK)/mesh/core/src/timer_scheduler.c \
+  $(MESH_SDK)/mesh/core/src/timer.c \
+  $(MESH_SDK)/mesh/core/src/ticker.c \
+  $(MESH_SDK)/mesh/core/src/rand.c \
+  $(MESH_SDK)/mesh/core/src/nrf_mesh_opt.c \
+  $(MESH_SDK)/mesh/core/src/timeslot.c \
+  $(MESH_SDK)/mesh/core/src/bearer_event.c \
+  $(MESH_SDK)/mesh/core/src/enc.c \
+  $(MESH_SDK)/mesh/core/src/network.c \
+  $(MESH_SDK)/mesh/core/src/net_packet.c \
+  $(MESH_SDK)/mesh/core/src/msqueue.c \
+  $(MESH_SDK)/mesh/core/src/nrf_mesh_keygen.c \
+  $(MESH_SDK)/mesh/core/src/cache.c \
+  $(MESH_SDK)/mesh/core/src/list.c \
+  $(MESH_SDK)/mesh/core/src/log.c \
+  $(MESH_SDK)/mesh/core/src/flash_manager.c \
+  $(MESH_SDK)/mesh/core/src/ccm_soft.c \
+  $(MESH_SDK)/mesh/core/src/toolchain.c \
+  $(MESH_SDK)/mesh/core/src/replay_cache.c \
+  $(MESH_SDK)/mesh/core/src/beacon.c \
+  $(MESH_SDK)/mesh/core/src/flash_manager_internal.c \
+  $(MESH_SDK)/mesh/core/src/core_tx.c \
+  $(MESH_SDK)/mesh/core/src/heartbeat.c \
+  $(MESH_SDK)/mesh/core/src/net_beacon.c \
+  $(MESH_SDK)/mesh/core/src/fsm.c \
+  $(MESH_SDK)/mesh/core/src/core_tx_adv.c \*
+  
+  $(MESH_SDK)/mesh/stack/src/mesh_stack.c" \
+		
+  $(MESH_SDK)/mesh/access/src/access_publish.c" \
+  $(MESH_SDK)/mesh/access/src/access.c" \
+  $(MESH_SDK)/mesh/access/src/access_reliable.c" \
+  $(MESH_SDK)/mesh/access/src/access_loopback.c" \
+  $(MESH_SDK)/mesh/access/src/device_state_manager.c" \*
+	  
+  $(MESH_SDK)/mesh/bearer/src/ad_listener.c" \
+  $(MESH_SDK)/mesh/bearer/src/ad_type_filter.c" \
+  $(MESH_SDK)/mesh/bearer/src/adv_packet_filter.c" \
+  $(MESH_SDK)/mesh/bearer/src/advertiser.c" \
+  $(MESH_SDK)/mesh/bearer/src/bearer_handler.c" \
+  $(MESH_SDK)/mesh/bearer/src/broadcast.c" \
+  $(MESH_SDK)/mesh/bearer/src/filter_engine.c" \
+  $(MESH_SDK)/mesh/bearer/src/gap_address_filter.c" \
+  $(MESH_SDK)/mesh/bearer/src/radio_config.c" \
+  $(MESH_SDK)/mesh/bearer/src/rssi_filter.c" \
+  $(MESH_SDK)/mesh/bearer/src/scanner.c" \
+  $(MESH_SDK)/mesh/bearer/src/mesh_pa_lna.c" \*
+	  
+  $(MESH_SDK)/external/micro-ecc/uECC.c" \
+  
+  $(MESH_SDK)/mesh/prov/src/prov_provisionee.c \
+  $(MESH_SDK)/mesh/prov/src/nrf_mesh_prov.c \
+  $(MESH_SDK)/mesh/prov/src/provisioning.c \
+  $(MESH_SDK)/mesh/prov/src/prov_beacon.c \
+  $(MESH_SDK)/mesh/prov/src/prov_utils.c \
+  $(MESH_SDK)/mesh/prov/src/prov_bearer_adv.c \*
+	  
+  $(MESH_SDK)/models/config/src/composition_data.c \
+  $(MESH_SDK)/models/config/src/config_server.c \
+  $(MESH_SDK)/models/config/src/packed_index_list.c \
+
+  $(MESH_SDK)/models/health/src/health_server.c \ 
+
+  $(MESH_SDK)/models/simple_on_off/src/simple_on_off_server.c \	  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
