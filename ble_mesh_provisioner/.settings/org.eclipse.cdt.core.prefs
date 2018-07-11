@@ -1,0 +1,9 @@
+eclipse.preferences.version=1
+environment/project/ilg.gnuarmeclipse.managedbuild.cross.toolchain.base.2136683653/MESH_SDK/delimiter=;
+environment/project/ilg.gnuarmeclipse.managedbuild.cross.toolchain.base.2136683653/MESH_SDK/operation=append
+environment/project/ilg.gnuarmeclipse.managedbuild.cross.toolchain.base.2136683653/MESH_SDK/value=I\:\\SDK\\nrf5_SDK_for_Mesh
+environment/project/ilg.gnuarmeclipse.managedbuild.cross.toolchain.base.2136683653/NRF_SDK/delimiter=;
+environment/project/ilg.gnuarmeclipse.managedbuild.cross.toolchain.base.2136683653/NRF_SDK/operation=append
+environment/project/ilg.gnuarmeclipse.managedbuild.cross.toolchain.base.2136683653/NRF_SDK/value=I\:\\SDK\\nRF5_SDK_15.0.0_a53641a
+environment/project/ilg.gnuarmeclipse.managedbuild.cross.toolchain.base.2136683653/append=true
+environment/project/ilg.gnuarmeclipse.managedbuild.cross.toolchain.base.2136683653/appendContributed=true

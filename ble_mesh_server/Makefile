@@ -2,9 +2,9 @@ PROJECT_NAME     := ble_app_template_pca10040_s132
 TARGETS          := nrf52832_xxaa
 OUTPUT_DIRECTORY := _build
 
-SDK_ROOT := I:/SDK/nRF5_SDK_15.0.0_a53641a
+SDK_ROOT := C:/nRF5_SDK_15/nRF5_SDK_15.0.0_a53641a
 PROJ_DIR := .
-MESH_SDK := I:/SDK/nrf5_SDK_for_Mesh
+MESH_SDK := C:/nRF5_SDK_15/nrf5_SDK_for_Mesh_v2.1.1
 
 $(OUTPUT_DIRECTORY)/nrf52832_xxaa.out: \
   LINKER_SCRIPT  := ble_app_template_gcc_nrf52.ld
@@ -157,7 +157,7 @@ SRC_FILES += \
   $(MESH_SDK)/models/config/src/config_server.c \
   $(MESH_SDK)/models/config/src/packed_index_list.c \
   $(MESH_SDK)/models/health/src/health_server.c \
-  $(MESH_SDK)/models/simple_on_off/src/simple_on_off_server.c \ 
+  $(MESH_SDK)/models/simple_on_off/src/simple_on_off_server.c  
   
 # Include folders common to all targets
 INC_FOLDERS += \
@@ -340,6 +340,8 @@ CFLAGS += -DuECC_SUPPORTS_secp256k1=0
 CFLAGS += -DuECC_SUPPORT_COMPRESSED_POINT=0
 CFLAGS += -DNO_VTOR_CONFIG
 CFLAGS += -DNRF52832
+CFLAGS += -DNRF_MESH_LOG_ENABLE=NRF_LOG_USES_RTT
+CFLAGS += -DCONFIG_APP_IN_CORE
 CFLAGS += -DUSE_APP_CONFIG=1
 CFLAGS += -DUSE_APP_CONFIG=1
 CFLAGS += -mcpu=cortex-m4
@@ -425,5 +427,8 @@ flash_softdevice:
 
 erase:
 	nrfjprog -f nrf52 --eraseall
+	
+reset:
+	nrfjprog -f nrf52 --reset
 
 
