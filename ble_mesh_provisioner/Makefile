@@ -2,9 +2,9 @@ PROJECT_NAME     := ble_app_template_pca10040_s132
 TARGETS          := nrf52832_xxaa
 OUTPUT_DIRECTORY := _build
 
-SDK_ROOT := C:/nRF5_SDK_15/nRF5_SDK_15.0.0_a53641a
+SDK_ROOT := I:/SDK/nRF5_SDK_15.0.0_a53641a/
 PROJ_DIR := .
-MESH_SDK := C:/nRF5_SDK_15/nrf5_SDK_for_Mesh_v2.1.1
+MESH_SDK := I:/SDK/nrf5_SDK_for_Mesh
 
 $(OUTPUT_DIRECTORY)/nrf52832_xxaa.out: \
   LINKER_SCRIPT  := ble_app_template_gcc_nrf52.ld

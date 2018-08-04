@@ -75,6 +75,9 @@
 #include "example_network_config.h"
 #include "nrf_mesh_config_examples.h"
 
+#include "SEGGER_RTT.h"
+#include "SEGGER_RTT_Conf.h"
+
 #define RTT_INPUT_POLL_PERIOD_MS (100)
 #define LED_BLINK_INTERVAL_MS    (200)
 #define LED_BLINK_CNT_START      (2)
@@ -115,7 +118,7 @@ static void app_flash_manager_add(void);
 
 static void flash_write_complete(const flash_manager_t * p_manager, const fm_entry_t * p_entry, fm_result_t result)
 {
-     __LOG(LOG_SRC_APP, LOG_LEVEL_INFO, "Flash write complete\n");
+     SEGGER_RTT_printf(0, "Flash write complete\n");
 
     /* If we get an AREA_FULL then our calculations for flash space required are buggy. */
     NRF_MESH_ASSERT(result != FM_RESULT_ERROR_AREA_FULL);
@@ -143,7 +146,7 @@ static void flash_manager_mem_available(void * p_args)
 
 static void flash_remove_complete(const flash_manager_t * p_manager)
 {
-    __LOG(LOG_SRC_APP, LOG_LEVEL_INFO, "Flash remove complete\n");
+    SEGGER_RTT_printf(0, "Flash remove complete\n");
 }
 
 static void app_flash_manager_add(void)
@@ -246,7 +249,7 @@ static void app_data_store_cb(void)
 
 static void app_config_successful_cb(void)
 {
-    __LOG(LOG_SRC_APP, LOG_LEVEL_INFO, "Configuration of device %u successful\n", m_nw_state.configured_devices);
+    SEGGER_RTT_printf(0, "Configuration of device %u successful\n", m_nw_state.configured_devices);
 
     hal_led_pin_set(APP_CONFIGURATION_LED, 0);
 
@@ -265,7 +268,7 @@ static void app_config_successful_cb(void)
     }
     else
     {
-        __LOG(LOG_SRC_APP, LOG_LEVEL_INFO, "All servers provisioned\n");
+        SEGGER_RTT_printf(0, "All servers provisioned\n");
 
         hal_led_blink_ms(LEDS_MASK, LED_BLINK_INTERVAL_MS, LED_BLINK_CNT_PROV);
     }
@@ -273,14 +276,14 @@ static void app_config_successful_cb(void)
 
 static void app_config_failed_cb(void)
 {
-    __LOG(LOG_SRC_APP, LOG_LEVEL_INFO, "Configuration of device %u failed. Press Button 1 to retry.\n", m_nw_state.configured_devices);
+    SEGGER_RTT_printf(0, "Configuration of device %u failed. Press Button 1 to retry.\n", m_nw_state.configured_devices);
     m_node_prov_setup_started = false;
     hal_led_pin_set(APP_CONFIGURATION_LED, 0);
 }
 
 static void app_prov_success_cb(void)
 {
-    __LOG(LOG_SRC_APP, LOG_LEVEL_INFO, "Provisioning successful\n");
+    SEGGER_RTT_printf(0, "Provisioning successful\n");
 
     hal_led_pin_set(APP_PROVISIONING_LED, 0);
     hal_led_pin_set(APP_CONFIGURATION_LED, 1);
@@ -288,7 +291,7 @@ static void app_prov_success_cb(void)
 
 static void app_prov_failed_cb(void)
 {
-    __LOG(LOG_SRC_APP, LOG_LEVEL_INFO, "Provisioning failed. Press Button 1 to retry.\n");
+    SEGGER_RTT_printf(0, "Provisioning failed. Press Button 1 to retry.\n");
     m_node_prov_setup_started = false;
 
     hal_led_pin_set(APP_PROVISIONING_LED, 0);
@@ -318,7 +321,7 @@ static void app_health_event_cb(const health_client_t * p_client, const health_c
 
 static void app_config_server_event_cb(const config_server_evt_t * p_evt)
 {
-    __LOG(LOG_SRC_APP, LOG_LEVEL_INFO, "config_server Event %d.\n", p_evt->type);
+    SEGGER_RTT_printf(0, "config_server Event %d.\n", p_evt->type);
 
     if (p_evt->type == CONFIG_SERVER_EVT_NODE_RESET)
     {
@@ -330,7 +333,7 @@ static void app_config_server_event_cb(const config_server_evt_t * p_evt)
 static void app_config_client_event_cb(config_client_event_type_t event_type, const config_client_event_t * p_event, uint16_t length)
 {
     /* USER_NOTE: Do additional processing of config client events here if required */
-    __LOG(LOG_SRC_APP, LOG_LEVEL_INFO, "Config client event\n");
+    SEGGER_RTT_printf(0, "Config client event\n");
 
     /* Pass events to the node setup helper module for further processing */
     node_setup_config_client_event_process(event_type, p_event, length);
@@ -348,7 +351,7 @@ static void check_network_state(void)
         if (m_nw_state.configured_devices < m_nw_state.provisioned_devices)
         {
             /* Execute configuration */
-            __LOG(LOG_SRC_APP, LOG_LEVEL_INFO, "Waiting for provisioned node to be configured ...\n");
+            SEGGER_RTT_printf(0, "Waiting for provisioned node to be configured ...\n");
             node_setup_start(m_nw_state.last_device_address, PROVISIONER_RETRY_COUNT,
                             m_nw_state.appkey, APPKEY_INDEX);
 
@@ -359,7 +362,7 @@ static void check_network_state(void)
             /* Start provisioning - First provision the client with known UUID */
             m_exp_uuid.p_uuid = m_client_node_uuid;
             m_exp_uuid.length = NRF_MESH_UUID_SIZE;
-            __LOG(LOG_SRC_APP, LOG_LEVEL_INFO, "Waiting for Client node to be provisioned ...\n");
+            SEGGER_RTT_printf(0, "Waiting for Client node to be provisioned ...\n");
             prov_helper_provision_next_device(PROVISIONER_RETRY_COUNT, m_nw_state.next_device_address, &m_exp_uuid);
             prov_helper_scan_start();
 
@@ -370,7 +373,7 @@ static void check_network_state(void)
             /* Start provisioning - rest of the devices */
             m_exp_uuid.p_uuid = m_server_uuid_filter;
             m_exp_uuid.length = SERVER_NODE_UUID_PREFIX_SIZE;
-            __LOG(LOG_SRC_APP, LOG_LEVEL_INFO, "Waiting for Server node to be provisioned ...\n");
+            SEGGER_RTT_printf(0, "Waiting for Server node to be provisioned ...\n");
             prov_helper_provision_next_device(PROVISIONER_RETRY_COUNT, m_nw_state.next_device_address, &m_exp_uuid);
             prov_helper_scan_start();
 
@@ -378,7 +381,7 @@ static void check_network_state(void)
         }
         else
         {
-            __LOG(LOG_SRC_APP, LOG_LEVEL_INFO, "All servers provisioned\n");
+            SEGGER_RTT_printf(0, "All servers provisioned\n");
             return;
         }
 
@@ -386,7 +389,7 @@ static void check_network_state(void)
     }
     else
     {
-         __LOG(LOG_SRC_APP, LOG_LEVEL_INFO, "Waiting for previous procedure to finish ...\n");
+         SEGGER_RTT_printf(0, "Waiting for previous procedure to finish ...\n");
     }
 }
 
@@ -445,14 +448,14 @@ static bool app_flash_config_load(void)
     }
     else
     {
-        __LOG(LOG_SRC_APP, LOG_LEVEL_INFO, "Restored: App data\n");
+        SEGGER_RTT_printf(0, "Restored: App data\n");
     }
     return app_load;
 }
 
 static void button_event_handler(uint32_t button_number)
 {
-    __LOG(LOG_SRC_APP, LOG_LEVEL_INFO, "Button %u pressed\n", button_number + 1);
+    SEGGER_RTT_printf(0, "Button %u pressed\n", button_number + 1);
     switch (button_number)
     {
         case 0:
@@ -466,13 +469,13 @@ static void button_event_handler(uint32_t button_number)
         case 3:
         {
             /* Clear all the states to reset the node. */
-            __LOG(LOG_SRC_APP, LOG_LEVEL_INFO, "----- Node reset -----\n");
+            SEGGER_RTT_printf(0, "----- Node reset -----\n");
 
             clear_app_data();
             mesh_stack_config_clear();
 
             hal_led_blink_ms(1 << BSP_LED_0, LED_BLINK_INTERVAL_MS, LED_BLINK_CNT_PROV);
-            __LOG(LOG_SRC_APP, LOG_LEVEL_INFO, "----- Press reset button or power cycle the device  -----\n");
+            SEGGER_RTT_printf(0, "----- Press reset button or power cycle the device  -----\n");
             break;
         }
 
@@ -492,7 +495,7 @@ static void app_rtt_input_handler(int key)
 
 void models_init_cb(void)
 {
-    __LOG(LOG_SRC_APP, LOG_LEVEL_INFO, "Initializing and adding models\n");
+    SEGGER_RTT_printf(0, "Initializing and adding models\n");
     m_dev_handles.m_netkey_handle = DSM_HANDLE_INVALID;
     m_dev_handles.m_appkey_handle = DSM_HANDLE_INVALID;
     m_dev_handles.m_self_devkey_handle = DSM_HANDLE_INVALID;
@@ -535,7 +538,7 @@ static void mesh_init(void)
 
     if (!device_provisioned)
     {
-        __LOG(LOG_SRC_APP, LOG_LEVEL_INFO, "Setup defaults: Adding keys, addresses, and bindings \n");
+        SEGGER_RTT_printf(0, "Setup defaults: Adding keys, addresses, and bindings \n");
 
         prov_helper_provision_self();
         app_default_models_bind_setup();
@@ -544,7 +547,7 @@ static void mesh_init(void)
     }
     else
     {
-        __LOG(LOG_SRC_APP, LOG_LEVEL_INFO, "Restored: Handles \n");
+        SEGGER_RTT_printf(0, "Restored: Handles \n");
         prov_helper_device_handles_load();
     }
 
@@ -554,40 +557,39 @@ static void mesh_init(void)
 static void initialize(void)
 {
     __LOG_INIT(LOG_SRC_APP | LOG_SRC_ACCESS, LOG_LEVEL_INFO, LOG_CALLBACK_DEFAULT);
-    __LOG(LOG_SRC_APP, LOG_LEVEL_INFO, "----- BLE Mesh Light Switch Provisioner Demo -----\n");
+    SEGGER_RTT_printf(0, "----- BLE Mesh Light Switch Provisioner Demo -----\n");
 
     ERROR_CHECK(app_timer_init());
     hal_leds_init();
 
-#if BUTTON_BOARD
-
-    ERROR_CHECK(hal_buttons_init(button_event_handler));
-#elif
-    #error "board is there main"
+#ifndef BUTTON_BOARD
+#error "board is there main"
 #endif
+    ERROR_CHECK(hal_buttons_init(button_event_handler));
 
     /* Mesh Init */
     nrf_clock_lf_cfg_t lfc_cfg = DEV_BOARD_LF_CLK_CFG;
+    SEGGER_RTT_printf(0, "Tick\n");
     ERROR_CHECK(mesh_softdevice_init(lfc_cfg));
     mesh_init();
 }
 
 static void app_start(void)
 {
-    __LOG(LOG_SRC_APP, LOG_LEVEL_INFO, "Starting application ...\n");
-    __LOG(LOG_SRC_APP, LOG_LEVEL_INFO, "Provisoned Nodes: %d, Configured Nodes: %d Next Address: 0x%04x\n",
+    SEGGER_RTT_printf(0, "Starting application ...\n");
+    SEGGER_RTT_printf(0, "Provisoned Nodes: %d, Configured Nodes: %d Next Address: 0x%04x\n",
           m_nw_state.provisioned_devices, m_nw_state.configured_devices, m_nw_state.next_device_address);
     __LOG_XB(LOG_SRC_APP, LOG_LEVEL_INFO, "Dev key ", m_nw_state.self_devkey, NRF_MESH_KEY_SIZE);
     __LOG_XB(LOG_SRC_APP, LOG_LEVEL_INFO, "Net key ", m_nw_state.netkey, NRF_MESH_KEY_SIZE);
     __LOG_XB(LOG_SRC_APP, LOG_LEVEL_INFO, "App key ", m_nw_state.appkey, NRF_MESH_KEY_SIZE);
-    __LOG(LOG_SRC_APP, LOG_LEVEL_INFO, "Press Button 1 to start provisioning and configuration process. \n");
+    SEGGER_RTT_printf(0, "Press Button 1 to start provisioning and configuration process. \n");
 }
 
 static void start(void)
 {
     rtt_input_enable(app_rtt_input_handler, RTT_INPUT_POLL_PERIOD_MS);
     ERROR_CHECK(nrf_mesh_enable());
-    __LOG(LOG_SRC_APP, LOG_LEVEL_INFO, "<start> \n");
+    SEGGER_RTT_printf(0, "<start> \n");
 
 #if (!PERSISTENT_STORAGE)
     app_start();
@@ -599,9 +601,10 @@ static void start(void)
 
 int main(void)
 {
+
     initialize();
     execution_start(start);
-
+    SEGGER_RTT_printf(0, "ENTER Main LOOP\n");
     for (;;)
     {
         (void)sd_app_evt_wait();

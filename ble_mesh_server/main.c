@@ -222,23 +222,24 @@ static void start(void)
 
 int main(void)
 {
-	SEGGER_RTT_printf(0,"Sending Sigfox MSG\n\r");
+
     initialize();
     execution_start(start);
 
-    get_client_packet_bool();
+    //get_client_packet_bool();
 
 
     SEGGER_RTT_printf(0, "ENTER Main LOOP\n");
     for (;;)
     {
-        if(get_client_packet_bool()){
+    	//SEGGER_RTT_printf(0, "ENTER Main LOOP\n");
+        /*if(get_client_packet_bool()){
           SEGGER_RTT_printf(0,"Got packet from client\n");
           uint8_t value = hal_led_pin_get(LED_PIN_NUMBER);
           hal_led_pin_set(LED_PIN_NUMBER, value);
           (void)simple_on_off_server_status_publish(&m_server, value);
           set_client_packet_bool(false);
-        }
+        }*/
 
         (void)sd_app_evt_wait();
 

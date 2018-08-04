@@ -54,6 +54,9 @@
 #include "nrf_mesh_configure.h"
 #include "app_timer.h"
 
+#include "SEGGER_RTT.h"
+#include "SEGGER_RTT_Conf.h"
+
 #define RTT_INPUT_POLL_PERIOD_MS (100)
 #define GROUP_MSG_REPEAT_COUNT   (2)
 
@@ -72,11 +75,11 @@ static bool                   m_device_provisioned;
 
 static void provisioning_complete_cb(void)
 {
-    __LOG(LOG_SRC_APP, LOG_LEVEL_INFO, "Successfully provisioned\n");
+	SEGGER_RTT_printf(0, "Successfully provisioned\n");
 
     dsm_local_unicast_address_t node_address;
     dsm_local_unicast_addresses_get(&node_address);
-    __LOG(LOG_SRC_APP, LOG_LEVEL_INFO, "Node Address: 0x%04x \n", node_address.address_start);
+    SEGGER_RTT_printf(0, "Node Address: 0x%04x \n", node_address.address_start);
 
     hal_led_mask_set(LEDS_MASK, LED_MASK_STATE_OFF);
     hal_led_blink_ms(LEDS_MASK, LED_BLINK_INTERVAL_MS, LED_BLINK_CNT_PROV);
@@ -269,7 +272,7 @@ static void start(void)
 
     const uint8_t *p_uuid = nrf_mesh_configure_device_uuid_get();
     UNUSED_VARIABLE(p_uuid);
-    __LOG_XB(LOG_SRC_APP, LOG_LEVEL_INFO, "Device UUID ", p_uuid, NRF_MESH_UUID_SIZE);
+    SEGGER_RTT_printf(0, "Device UUID ", p_uuid, NRF_MESH_UUID_SIZE);
 
     hal_led_mask_set(LEDS_MASK, LED_MASK_STATE_OFF);
     hal_led_blink_ms(LEDS_MASK, LED_BLINK_INTERVAL_MS, LED_BLINK_CNT_START);
@@ -277,9 +280,10 @@ static void start(void)
 
 int main(void)
 {
+
     initialize();
     execution_start(start);
-
+    SEGGER_RTT_printf(0, "ENTER Main LOOP\n");
     for (;;)
     {
         (void)sd_app_evt_wait();
